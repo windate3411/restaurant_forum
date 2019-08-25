@@ -4,12 +4,21 @@
 後台使用者可以瀏覽、新增、編輯以及刪除餐廳資料
 並更改目前使用者的權限(admin/user)
 
+此專案同時也上傳到heroku上
+https://intense-escarpment-31713.herokuapp.com
+可用以下帳號做測試
+```
+Admin
+account:root@example.com
+pwd:12345678
+一般使用者
+account:user1@example.com
+pwd:12345678
+```
 ## 專案預覽 Project preview
 
-![image](https://github.com/windate3411/AC_core_final_Q3/blob/master/result1.PNG)
-![image](https://github.com/windate3411/AC_core_final_Q3/blob/master/result2.PNG)
-![image](https://github.com/windate3411/AC_core_final_Q3/blob/master/result3.PNG)
-![image](https://github.com/windate3411/AC_core_final_Q3/blob/master/result4.PNG)
+![image](https://github.com/windate3411/restaurant_forum.git/blob/master/result1.PNG)
+![image](https://github.com/windate3411/restaurant_forum.git/blob/master/result2.PNG)
 
 ## 專案需求 Prerequisites
 

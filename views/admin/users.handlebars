@@ -16,26 +16,25 @@
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">#</th>
+      <th scope='col'>status</th>
     </tr>
   </thead>
   <tbody>
-    {{#each restaurants}}
+    {{#each users}}
     <tr>
       <th scope="row">{{this.id}}</th>
-      <td>{{this.name}}</td>
+      <td>{{this.email}}</td>
+      {{#if this.isAdmin}}
+      <td class="text-danger">admin</td>
+      {{else}}
+      <td>user</td>
+      {{/if}}
       <td>
-        <button type="button" class="btn btn-link">
-          <a href="/admin/restaurants/{{this.id}}">
-            Show
-          </a>
-        </button>
-        <button type="button" class="btn btn-link">
-          <a href="/admin/restaurants/{{this.id}}/edit">
-            Edit
-          </a>
-        </button>
-        <form action="/admin/restaurants/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
-          <button type="submit" class="btn btn-link">Delete</button>
+        <form action="/admin/users/{{this.id}}?_method=PUT" method="POST" style="display: inline;">
+          {{!-- 若使用者為管理者權限 則顯示"設為一般使用者" 反之則設為管理者 --}}
+          <button type="submit" class="btn btn-link">
+            Set as {{#if this.isAdmin}} user {{else}} admin {{/if}}
+          </button>
         </form>
       </td>
     </tr>

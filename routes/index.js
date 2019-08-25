@@ -28,6 +28,7 @@ module.exports = (app, passport) => {
   //如果是在admin中則導向admin首頁
   app.get('/admin', authenticatedAdmin, (req, res) => res.redirect('/admin/restaurants'))
   app.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants)
+  app.get('/admin/users', authenticatedAdmin, adminController.getUsers)
 
   //註冊相關
   app.get('/signup', userController.signUpPage)
@@ -51,4 +52,7 @@ module.exports = (app, passport) => {
 
   //刪除餐廳資料
   app.delete('/admin/restaurants/:id', authenticatedAdmin, adminController.deleteRestaurant)
+
+  //更新使用者權限
+  app.put('/admin/users/:id', authenticatedAdmin, adminController.putUser)
 }

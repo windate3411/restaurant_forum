@@ -23,16 +23,17 @@ app.use(session({
 }))
 app.use(flash())
 
+// set up passport
+app.use(passport.initialize())
+app.use(passport.session())
+
 // set up local
 app.use((req, res, next) => {
   res.locals.success_messages = req.flash('success_messages')
   res.locals.error_messages = req.flash('error_messages')
+  res.locals.user = req.user
   next()
 })
-
-// set up passport
-app.use(passport.initialize())
-app.use(passport.session())
 
 // use body parser & method override
 const bodyParser = require('body-parser')

@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars')
 const chalk = require('chalk')
 const flash = require('connect-flash')
 const session = require('express-session')
+const passport = require('./config/passport')
 // set up port
 const port = process.env.PORT || 3000
 
@@ -29,6 +30,10 @@ app.use((req, res, next) => {
   next()
 })
 
+// set up passport
+app.use(passport.initialize())
+app.use(passport.session())
+
 // use body parser & method override
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
@@ -40,7 +45,7 @@ app.use(methodOverride('_method'))
 app.use(express.static('public'))
 
 // set up routes
-require('./routes')(app)
+require('./routes')(app, passport)
 
 // set up server
 app.listen(port, () => {

@@ -129,6 +129,8 @@ const adminController = {
         user.update({
           isAdmin: user.isAdmin ? false : true
         })
+        console.log(user.dataValues.name);
+        req.flash('success_messages', `${user.dataValues.name}'s status has been successfully changed`)
       })
       .then(user => {
         res.redirect('/admin/users')

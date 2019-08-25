@@ -17,8 +17,8 @@ pwd:12345678
 ```
 ## 專案預覽 Project preview
 
-![image](https://github.com/windate3411/restaurant_forum.git/blob/master/result1.PNG)
-![image](https://github.com/windate3411/restaurant_forum.git/blob/master/result2.PNG)
+![image](https://github.com/windate3411/restaurant_forum/blob/master/result1.PNG)
+![image](https://github.com/windate3411/restaurant_forum/blob/master/result2.PNG)
 
 ## 專案需求 Prerequisites
 

@@ -38,4 +38,7 @@ module.exports = (app, passport) => {
   //新增餐廳
   app.get('/admin/restaurants/create', authenticatedAdmin, adminController.createRestaurant)
   app.post('/admin/restaurants', authenticatedAdmin, adminController.postRestaurant)
+
+  //瀏覽單一餐廳資訊
+  app.get('/admin/restaurants/:id', authenticatedAdmin, adminController.getRestaurant)
 }

@@ -41,4 +41,11 @@ module.exports = (app, passport) => {
 
   //瀏覽單一餐廳資訊
   app.get('/admin/restaurants/:id', authenticatedAdmin, adminController.getRestaurant)
+
+  //更新餐廳資料
+  app.get('/admin/restaurants/:id/edit', authenticatedAdmin, adminController.editRestaurant)
+  app.put('/admin/restaurants/:id', authenticatedAdmin, adminController.putRestaurant)
+
+  //刪除餐廳資料
+  app.delete('/admin/restaurants/:id', authenticatedAdmin, adminController.deleteRestaurant)
 }

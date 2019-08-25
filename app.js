@@ -44,6 +44,7 @@ app.use(methodOverride('_method'))
 
 // set up static file
 app.use(express.static('public'))
+app.use('/upload', express.static(__dirname + '/upload'))
 
 // set up routes
 require('./routes')(app, passport)

@@ -1,8 +1,19 @@
-const express = require('express')
-const router = express.Router()
+const restController = require('../controllers/restController.js')
+const adminController = require('../controllers/adminController')
+const userController = require('../controllers/userController')
+module.exports = app => {
 
-router.get('/', (req, res) => {
-  res.render('index')
-})
+  //如果使用者訪問首頁，就導向 /restaurants 的頁面
+  app.get('/', (req, res) => res.redirect('/restaurants'))
 
-module.exports = router
+  //在 /restaurants 底下則交給 restController.getRestaurants 來處理
+  app.get('/restaurants', restController.getRestaurants)
+
+  //如果是在admin中則導向admin首頁
+  app.get('/admin', (req, res) => res.redirect('/admin/restaurants'))
+  app.get('/admin/restaurants', adminController.getRestaurants)
+
+  //註冊相關
+  app.get('/signup', userController.signUpPage)
+  app.post('/signup', userController.signUp)
+}

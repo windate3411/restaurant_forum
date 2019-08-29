@@ -12,7 +12,13 @@ const port = process.env.PORT || 3000
 const db = require('./models')
 
 // set up view engine
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main', helpers: {
+    ifCond: function (a, b) {
+      return a === b ? 'selected' : ''
+    }
+  }
+}))
 app.set('view engine', 'handlebars')
 
 // set up session and flash

@@ -1,5 +1,6 @@
 const db = require('../models')
 const Restaurant = db.Restaurant
+const Category = db.Category
 const User = db.User
 const fs = require('fs')
 const imgur = require('imgur-node-api')
@@ -7,8 +8,9 @@ const IMGUR_CLIENT_ID = 'fb3f88b74db0342'
 
 const adminController = {
   getRestaurants: (req, res) => {
-    return Restaurant.findAll()
+    return Restaurant.findAll({ include: [Category] })
       .then(restaurants => {
+        console.log(restaurants[0].dataValues);
         return res.render('admin/restaurants', { restaurants })
       })
   },
@@ -53,7 +55,7 @@ const adminController = {
     }
   },
   getRestaurant: (req, res) => {
-    return Restaurant.findByPk(req.params.id).then(restaurant => {
+    return Restaurant.findByPk(req.params.id, { include: [Category] }).then(restaurant => {
       return res.render('admin/restaurant', {
         restaurant: restaurant
       })
@@ -129,12 +131,11 @@ const adminController = {
         user.update({
           isAdmin: user.isAdmin ? false : true
         })
-
+        console.log(user.dataValues.name);
         req.flash('success_messages', `${user.dataValues.name}'s status has been successfully changed`)
         return user
       })
       .then(user => {
-        console.log(user);
         res.redirect('/admin/users')
       })
   }

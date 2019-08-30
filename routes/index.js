@@ -59,4 +59,12 @@ module.exports = (app, passport) => {
 
   //瀏覽餐廳分類
   app.get('/admin/categories', authenticatedAdmin, categoryController.getCategories)
+
+  //增加餐廳分類
+  app.post('/admin/categories', authenticatedAdmin, categoryController.postCategory)
+
+  //編輯餐廳分類
+  app.get('/admin/categories/:id', authenticatedAdmin, categoryController.getCategories)
+  app.put('/admin/categories/:id', authenticatedAdmin, categoryController.putCategory)
+
 }

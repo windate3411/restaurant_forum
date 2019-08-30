@@ -1,6 +1,7 @@
 const restController = require('../controllers/restController.js')
 const adminController = require('../controllers/adminController')
 const userController = require('../controllers/userController')
+const categoryController = require('../controllers/categoryController')
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
 
@@ -55,4 +56,7 @@ module.exports = (app, passport) => {
 
   //更新使用者權限
   app.put('/admin/users/:id', authenticatedAdmin, adminController.putUser)
+
+  //瀏覽餐廳分類
+  app.get('/admin/categories', authenticatedAdmin, categoryController.getCategories)
 }

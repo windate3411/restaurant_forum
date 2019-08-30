@@ -26,6 +26,9 @@ module.exports = (app, passport) => {
   //在 /restaurants 底下則交給 restController.getRestaurants 來處理
   app.get('/restaurants', authenticated, restController.getRestaurants)
 
+  //使用者瀏覽單一餐廳
+  app.get('/restaurants/:id', authenticated, restController.getRestaurant)
+
   //如果是在admin中則導向admin首頁
   app.get('/admin', authenticatedAdmin, (req, res) => res.redirect('/admin/restaurants'))
   app.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants)

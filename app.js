@@ -16,6 +16,9 @@ app.engine('handlebars', exphbs({
   defaultLayout: 'main', helpers: {
     ifCond: function (a, b) {
       return a === b ? 'selected' : ''
+    },
+    ifSame: function (a, b) {
+      return a === b ? 'active' : ''
     }
   }
 }))

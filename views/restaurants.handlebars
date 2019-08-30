@@ -1,10 +1,11 @@
 <ul class="nav nav-pills">
   <li class="nav-item">
-    <a class="nav-link {{ifSame categoryId ''}}" href="?categoryId=">全部</a>
+    <a class="nav-link {{#ifSame categoryId ''}}{{active}} {{/ifSame}}" href="?categoryId=">全部</a>
   </li>
   {{#each categories}}
   <li class="nav-item">
-    <a class="nav-link {{ifSame this.id ../categoryId}}" href="?categoryId={{this.id}}">{{this.name}}</a>
+    <a class="nav-link {{#ifSame this.id ../categoryId}}{{active}}{{/ifSame}}"
+      href="?categoryId={{this.id}}">{{this.name}}</a>
   </li>
   {{/each}}
 </ul>

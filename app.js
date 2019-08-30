@@ -17,8 +17,8 @@ app.engine('handlebars', exphbs({
     ifCond: function (a, b) {
       return a === b ? 'selected' : ''
     },
-    ifSame: function (a, b) {
-      return a === b ? 'active' : ''
+    ifSame: function (a, b, options) {
+      return a === b ? options.fn({ active: 'active' }) : ''
     }
   }
 }))

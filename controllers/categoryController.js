@@ -39,11 +39,21 @@ let categoryController = {
       return Category.findByPk(req.params.id)
         .then(category => {
           category.update(req.body)
-          req.flash('success_messages', 'category was successfully to update')
+          req.flash('success_messages', 'category was successfully  updated')
         })
         .then(category => res.redirect('/admin/categories'))
     }
+  },
+  //刪除分類
+  deleteCategory: (req, res) => {
+    return Category.findByPk(req.params.id)
+      .then(category => {
+        category.destroy()
+        req.flash('success_messages', 'category was successfully destoryed')
+      })
+      .then(category => res.redirect('/admin/categories'))
   }
+
 }
 
 module.exports = categoryController

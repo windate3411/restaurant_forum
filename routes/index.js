@@ -67,4 +67,7 @@ module.exports = (app, passport) => {
   app.get('/admin/categories/:id', authenticatedAdmin, categoryController.getCategories)
   app.put('/admin/categories/:id', authenticatedAdmin, categoryController.putCategory)
 
+  //刪除餐廳分類
+  app.delete('/admin/categories/:id', authenticatedAdmin, categoryController.deleteCategory)
+
 }

@@ -57,7 +57,12 @@ const userController = {
   editUser: (req, res) => {
     return User.findByPk(req.params.id)
       .then(user => {
-        return res.render('user', { user })
+        if (Number(req.params.id) == req.user.id) {
+          return res.render('user', { user })
+        } else {
+          req.flash('error_messages', '你只能編輯自己的資料!')
+          return res.redirect(`/users/${user.id}`)
+        }
       })
   },
   putUser: (req, res) => {

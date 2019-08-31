@@ -64,7 +64,8 @@ const restController = {
         { model: Comment, include: [User] }
       ]
     }).then(restaurant => {
-      console.log(restaurant);
+      return restaurant.increment('viewCounts', { by: 1 })
+    }).then(restaurant => {
       return res.render('dashboard', { restaurant })
     })
   }

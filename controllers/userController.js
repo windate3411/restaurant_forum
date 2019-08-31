@@ -4,6 +4,9 @@ const User = db.User
 const fs = require('fs')
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = 'fb3f88b74db0342'
+const Restaurant = db.Restaurant
+const Comment = db.Comment
+
 
 const userController = {
   signUpPage: (req, res) => {
@@ -49,8 +52,15 @@ const userController = {
     res.redirect('/signin')
   },
   getUser: (req, res) => {
-    return User.findByPk(req.params.id)
+    return User.findByPk(req.params.id, {
+      include: {
+        model: Comment,
+        include: Restaurant
+      }
+    })
       .then(user => {
+        console.log('user comment', user.Comments.Restaurant);
+        console.log(user.dataValues.Comments.length);
         return res.render('users', { user, user_Id: Number(req.user.id) })
       })
   },

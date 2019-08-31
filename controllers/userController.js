@@ -61,14 +61,14 @@ const userController = {
       .then(user => {
         console.log('user comment', user.Comments.Restaurant);
         console.log(user.dataValues.Comments.length);
-        return res.render('users', { user, user_Id: Number(req.user.id) })
+        return res.render('users/profile', { user, user_Id: Number(req.user.id) })
       })
   },
   editUser: (req, res) => {
     return User.findByPk(req.params.id)
       .then(user => {
         if (Number(req.params.id) == req.user.id) {
-          return res.render('user', { user })
+          return res.render('users/edit', { user })
         } else {
           req.flash('error_messages', '你只能編輯自己的資料!')
           return res.redirect(`/users/${user.id}`)

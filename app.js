@@ -5,6 +5,7 @@ const chalk = require('chalk')
 const flash = require('connect-flash')
 const session = require('express-session')
 const passport = require('./config/passport')
+const moment = require('moment')
 // set up port
 const port = process.env.PORT || 3000
 
@@ -22,6 +23,9 @@ app.engine('handlebars', exphbs({
     },
     ifConld: function (a, b, options) {
       return a === b ? options.fn(this) : options.inverse(this)
+    },
+    moments: function (date) {
+      return moment(date).fromNow()
     }
   }
 }))

@@ -60,7 +60,6 @@ const userController = {
     })
       .then(user => {
         const restaurantCounts = [...new Set(user.Comments.map(item => item.Restaurant.name))].length
-        console.log(user.Comments[0].Restaurant);
         return res.render('users/profile', {
           user,
           user_Id: Number(req.user.id),

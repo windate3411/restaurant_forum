@@ -33,6 +33,8 @@ module.exports = (app, passport) => {
   //使用者瀏覽單一餐廳
   app.get('/restaurants/:id', authenticated, restController.getRestaurant)
 
+  //使用者瀏覽餐廳dashboard
+  app.get('/restaurants/:id/dashboard', authenticated, restController.getDashboard)
   //如果是在admin中則導向admin首頁
   app.get('/admin', authenticatedAdmin, (req, res) => res.redirect('/admin/restaurants'))
   app.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants)

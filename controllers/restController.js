@@ -36,11 +36,26 @@ const restController = {
   getRestaurant: (req, res) => {
     return Restaurant.findByPk(req.params.id, { include: [Category, { model: Comment, include: User }] })
       .then(restaurant => {
-        // console.log(restaurant);
-        console.log(restaurant.Comments[0]);
-        // console.log(restaurant.Comments[0].dataValues);
         return res.render('restaurant', { restaurant })
       })
+  },
+  getFeeds: (req, res) => {
+    return Restaurant.findAll({
+      limit: 10,
+      order: [['createdAt', 'DESC']],
+      include: [Category]
+    }).then(restaurants => {
+      Comment.findAll({
+        limit: 10,
+        order: [['createdAt', 'DESC']],
+        include: [User, Restaurant]
+      }).then(comments => {
+        return res.render('feeds', {
+          comments,
+          restaurants
+        })
+      })
+    })
   }
 }
 

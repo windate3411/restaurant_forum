@@ -27,6 +27,9 @@ module.exports = (app, passport) => {
   //在 /restaurants 底下則交給 restController.getRestaurants 來處理
   app.get('/restaurants', authenticated, restController.getRestaurants)
 
+  //顯示最新動態
+  app.get('/restaurants/feeds', authenticated, restController.getFeeds)
+
   //使用者瀏覽單一餐廳
   app.get('/restaurants/:id', authenticated, restController.getRestaurant)
 

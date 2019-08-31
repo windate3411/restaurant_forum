@@ -80,4 +80,11 @@ module.exports = (app, passport) => {
   //刪除評論
   app.delete('/comments/:id', authenticatedAdmin, commentController.deleteComment)
 
+  //瀏覽個人資料
+  app.get('/users/:id', authenticated, userController.getUser)
+
+  //瀏覽編輯 Profile 頁面
+  app.get('/users/:id/edit', authenticated, userController.editUser)
+  app.put('/users/:id', authenticated, upload.single('image'), userController.putUser)
+
 }

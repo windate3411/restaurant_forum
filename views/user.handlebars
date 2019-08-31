@@ -1,0 +1,11 @@
+<h1>It's the edit page</h1>
+
+<form action="/users/{{user.id}}?_method=PUT" method="post" enctype="multipart/form-data">
+  <input type="text" value="{{user.name}}" name="name" id="name" required>
+  <div class="form-group">
+    <label for="image">Image</label>
+    <input type="file" class="form-control-file" id="image" name="image">
+  </div>
+  <button type="submit">submit</button>
+  <a href="javascript:history.back()" class="btn btn-secondary">回上一頁</a>
+</form>

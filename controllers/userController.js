@@ -59,9 +59,14 @@ const userController = {
       }
     })
       .then(user => {
-        console.log('user comment', user.Comments.Restaurant);
-        console.log(user.dataValues.Comments.length);
-        return res.render('users/profile', { user, user_Id: Number(req.user.id) })
+        const restaurantCounts = [...new Set(user.Comments.map(item => item.Restaurant.name))].length
+        console.log(user.Comments[0].Restaurant);
+        return res.render('users/profile', {
+          user,
+          user_Id: Number(req.user.id),
+          totalComments: user.Comments.length,
+          restaurantCounts
+        })
       })
   },
   editUser: (req, res) => {

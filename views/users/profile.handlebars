@@ -11,4 +11,23 @@
       </div>
     </div>
   </div>
+  <h1 class="mt-2 mb-2">評論區</h1>
+  <span>共有{{totalComments}}則評論 已評論{{restaurantCounts}}家餐廳</span>
+  <div class="row my-xl-5 py-xl-4">
+    {{#each user.Comments}}
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <img class="card-img-top" src="{{this.Restaurant.image}}" alt="Card image cap" width="286px" height="180px">
+        <div class="card-body">
+          <p class="card-text">
+            <a href="/restaurants/{{this.Restaurant.id}}">
+              {{this.Restaurant.name}}
+            </a>
+          </p>
+          <p class="card-text">{{this.text}}</p>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
 </div>

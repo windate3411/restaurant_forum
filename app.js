@@ -67,6 +67,6 @@ require('./routes')(app, passport)
 
 // set up server
 app.listen(port, () => {
-  db.sequelize.sync()
+  db.sequelize.sync({ force: true })
   console.log(chalk.green.bold(`you are now listening at port ${port}`))
 })

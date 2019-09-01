@@ -7,6 +7,7 @@ const IMGUR_CLIENT_ID = 'fb3f88b74db0342'
 const Restaurant = db.Restaurant
 const Comment = db.Comment
 const Favorite = db.Favorite
+const Like = db.Like
 
 const userController = {
   signUpPage: (req, res) => {
@@ -120,6 +121,32 @@ const userController = {
     })
       .then((favorite) => {
         favorite.destroy()
+          .then((restaurant) => {
+            return res.redirect('back')
+          })
+      })
+  },
+
+  // like function
+  addLike: (req, res) => {
+    return Like.create({
+      UserId: req.user.id,
+      RestaurantId: req.params.restaurantId
+    })
+      .then((restaurant) => {
+        return res.redirect('back')
+      })
+  },
+
+  removeLike: (req, res) => {
+    return Like.findOne({
+      where: {
+        UserId: req.user.id,
+        RestaurantId: req.params.restaurantId
+      }
+    })
+      .then((like) => {
+        like.destroy()
           .then((restaurant) => {
             return res.redirect('back')
           })

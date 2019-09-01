@@ -2,3 +2,4 @@
 temp/
 upload/
 config/default.json
+.env

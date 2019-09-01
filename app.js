@@ -12,6 +12,10 @@ const port = process.env.PORT || 3000
 // import models
 const db = require('./models')
 
+if (process.env.NODE_ENV !== 'production') { // 如果不是 production 模式
+  require('dotenv').config()
+}
+
 // set up view engine
 app.engine('handlebars', exphbs({
   defaultLayout: 'main', helpers: {

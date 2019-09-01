@@ -85,6 +85,9 @@ module.exports = (app, passport) => {
   //刪除評論
   app.delete('/comments/:id', authenticatedAdmin, commentController.deleteComment)
 
+  //topusers
+  app.get('/users/top', authenticated, userController.getTopUser)
+
   //瀏覽個人資料
   app.get('/users/:id', authenticated, userController.getUser)
 
@@ -99,4 +102,8 @@ module.exports = (app, passport) => {
   //Like & unlike
   app.post('/like/:restaurantId', authenticated, userController.addLike)
   app.delete('/like/:restaurantId', authenticated, userController.removeLike)
+
+  //following
+  app.post('/following/:userId', authenticated, userController.addFollowing)
+  app.delete('/following/:userId', authenticated, userController.removeFollowing)
 }

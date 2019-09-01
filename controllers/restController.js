@@ -3,6 +3,7 @@ const Category = db.Category
 const Restaurant = db.Restaurant
 const Comment = db.Comment
 const User = db.User
+const Favorite = db.Favorite
 const pageLimit = 10
 const restController = {
   getRestaurants: (req, res) => {
@@ -71,6 +72,23 @@ const restController = {
       return restaurant.increment('viewCounts', { by: 1 })
     }).then(restaurant => {
       return res.render('dashboard', { restaurant })
+    })
+  },
+  getTopRestaurant: (req, res) => {
+    return Restaurant.findAll({
+      include: [{ model: User, as: 'FavoritedUsers' }],
+      // 此為失敗的嘗試
+      // oreder: [{ model: User, as: 'FavoritedUsers' }, db.sequelize.literal('FavoritedUsers'), "DESC"],
+      // limit: 10
+    }).then(restaurants => {
+      restaurants = restaurants.map(restaurant => ({
+        ...restaurant.dataValues,
+        description: restaurant.dataValues.description.substring(0, 30),
+        favoratedUserCount: restaurant.FavoritedUsers.length,
+        isFavorited: req.user.FavoritedRestaurants.map(favoritedRestaurant => favoritedRestaurant.id).includes(restaurant.id)
+      }))
+      restaurants = restaurants.sort((a, b) => b.FavoritedUsers.length - a.FavoritedUsers.length).slice(0, 10)
+      return res.render('topRestaurant', { restaurants })
     })
   }
 }

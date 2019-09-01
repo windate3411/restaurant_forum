@@ -10,6 +10,9 @@ const Comment = db.Comment
 const Favorite = db.Favorite
 const Like = db.Like
 const Followship = db.Followship
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
+
 
 const userController = {
   signUpPage: (req, res) => {
@@ -56,18 +59,59 @@ const userController = {
   },
   getUser: (req, res) => {
     return User.findByPk(req.params.id, {
-      include: {
-        model: Comment,
-        include: Restaurant
-      }
+      include: [
+        {
+          model: Comment,
+          include: Restaurant
+        },
+        {
+          model: Restaurant,
+          as: 'FavoritedRestaurants'
+        },
+        {
+          model: Restaurant,
+          as: 'LikedRestaurants'
+        },
+        {
+          model: User,
+          as: 'Followers'
+        },
+        {
+          model: User,
+          as: 'Followings'
+        }]
     })
       .then(user => {
-        const restaurantCounts = [...new Set(user.Comments.map(item => item.Restaurant.name))].length
-        return res.render('users/profile', {
-          user,
-          user_Id: Number(req.user.id),
-          totalComments: user.Comments.length,
-          restaurantCounts
+        const restaurantCounts = [...new Set(user.Comments.map(item => item.Restaurant.name))]
+        const reviewedRestaurantId = [...new Set(user.Comments.map(item => item.Restaurant.id))]
+        const followers = user.Followers
+        const followings = user.Followings
+        //作法一 過濾資料
+        const set = new Set()
+        const reviewedRestaurant =
+          user.Comments
+            .map(item => item.Restaurant)
+            .filter(item => restaurantCounts.includes(item.name) ? item : false)
+            .filter(item => !set.has(item.name) ? set.add(item.name) : false)
+        //作法二 再戳一次資料庫
+        Restaurant.findAll({
+          where: {
+            id: {
+              [Op.in]: reviewedRestaurantId
+            }
+          }
+        }).then(filteredRestaurant => {
+          return res.render('users/profile', {
+            user,
+            user_Id: Number(req.user.id),
+            totalComments: user.Comments.length,
+            restaurantCounts: restaurantCounts.length,
+            followersCount: followers.length,
+            followingsCount: followings.length,
+            favoriteRestaurantCount: user.FavoritedRestaurants.length,
+            filteredRestaurant,
+            reviewedRestaurant
+          })
         })
       })
   },

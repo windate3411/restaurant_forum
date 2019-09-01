@@ -11,23 +11,72 @@
       </div>
     </div>
   </div>
-  <h1 class="mt-2 mb-2">評論區</h1>
-  <span>共有{{totalComments}}則評論 已評論{{restaurantCounts}}家餐廳</span>
-  <div class="row my-xl-5 py-xl-4">
-    {{#each user.Comments}}
+  <div class="row m-2 p-3">
     <div class="col-md-4">
-      <div class="card mb-4 shadow-sm">
-        <img class="card-img-top" src="{{this.Restaurant.image}}" alt="Card image cap" width="286px" height="180px">
+      <div class="card">
+        <div class="card-title bg-secondary">
+          <h2>追蹤{{followingsCount}}位使用者</h2>
+        </div>
         <div class="card-body">
-          <p class="card-text">
-            <a href="/restaurants/{{this.Restaurant.id}}">
-              {{this.Restaurant.name}}
+          <div class="d-flex">
+            {{#each user.Followings}}
+            <a href="/Users/{{this.id}}">
+              <img class="card-img-top" src="{{this.image}}" alt="Card image cap" style="height: 80px;width:80px">
             </a>
-          </p>
-          <p class="card-text">{{this.text}}</p>
+            {{/each}}
+          </div>
         </div>
       </div>
     </div>
-    {{/each}}
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-title bg-secondary">
+          <h2>已評論{{restaurantCounts}}餐廳</h2>
+        </div>
+        <div class="card-body">
+          <div class="d-flex">
+            {{#each reviewedRestaurant}}
+            <a href="/restaurants/{{this.id}}" class="mr-2">
+              <img class="card-img-top" src="{{this.image}}" alt="Card image cap" style="height: 80px;width:80px">
+            </a>
+            {{/each}}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row m-2 p-3">
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-title bg-secondary">
+          <h2>有{{followersCount}}位追隨者</h2>
+        </div>
+        <div class="card-body justify-content-center">
+          {{#each user.Followers}}
+          <a href="/Users/{{this.id}}" class="mr-2">
+            <img class="card-img-top" src="{{this.image}}" alt="Card image cap" style="height: 80px;width:80px">
+          </a>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card h-100">
+        <div class="card-title bg-secondary">
+          <h2>已收藏{{favoriteRestaurantCount}}家餐廳</h2>
+        </div>
+        <div class="card-body">
+          <div class="card-body">
+            {{#each user.FavoritedRestaurants}}
+            <a href="/restaurants/{{this.id}}" class="mr-2 mt-3">
+              <img class="card-img-top mr-2 mt-3" src="{{this.image}}" alt="Card image cap"
+                style="height: 80px;width:80px">
+            </a>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

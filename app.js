@@ -67,7 +67,7 @@ app.use(express.static('public'))
 app.use('/upload', express.static(__dirname + '/upload'))
 
 // set up routes
-require('./routes')(app, passport)
+require('./routes')(app)
 
 // set up server
 app.listen(port, () => {

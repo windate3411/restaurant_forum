@@ -6,13 +6,16 @@ const fs = require('fs')
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = 'fb3f88b74db0342'
 
+const adminService = require('../services/adminService')
 const adminController = {
   getRestaurants: (req, res) => {
-    return Restaurant.findAll({ include: [Category] })
-      .then(restaurants => {
-        console.log(restaurants[0].dataValues);
-        return res.render('admin/restaurants', { restaurants })
-      })
+    adminService.getRestaurants(req, res, (data) => {
+      return res.render('admin/restaurants', data)
+    })
+    // return Restaurant.findAll({ include: [Category] })
+    //   .then(restaurants => {
+    //     return res.render('admin/restaurants', { restaurants })
+    //   })
   },
   createRestaurant: (req, res) => {
     Category.findAll()

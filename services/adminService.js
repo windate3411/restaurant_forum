@@ -11,6 +11,11 @@ const adminService = {
     return Restaurant.findAll({ include: [Category] }).then(restaurants => {
       return callblack({ restaurants: restaurants })
     })
+  },
+  getRestaurant: (req, res, callblack) => {
+    return Restaurant.findByPk(req.params.id, { include: [Category] }).then(restaurant => {
+      return callblack({ restaurant })
+    })
   }
 }
 

@@ -1,23 +1,20 @@
 const db = require('../models')
 const Category = db.Category
-const categoryService = require('../services/categoryService')
-let categoryController = {
+
+let categoryService = {
   //瀏覽所有分類
-  getCategories: (req, res) => {
-    categoryService.getCategories(req, res, (data) => {
-      return res.render('admin/categories', data)
-    })
-    // return Category.findAll()
-    //   .then(categories => {
-    //     if (req.params.id) {
-    //       Category.findByPk(req.params.id)
-    //         .then(category => {
-    //           return res.render('admin/categories', { categories, category })
-    //         })
-    //     } else {
-    //       return res.render('admin/categories', { categories })
-    //     }
-    //   })
+  getCategories: (req, res, callback) => {
+    return Category.findAll()
+      .then(categories => {
+        if (req.params.id) {
+          Category.findByPk(req.params.id)
+            .then(category => {
+              return callback({ categories, category })
+            })
+        } else {
+          return callback({ categories })
+        }
+      })
   },
   //新增分類
   postCategory: (req, res) => {
@@ -59,4 +56,4 @@ let categoryController = {
 
 }
 
-module.exports = categoryController
+module.exports = categoryService

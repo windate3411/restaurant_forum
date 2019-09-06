@@ -1,23 +1,12 @@
-const db = require('../models')
+const db = require('../../models')
 const Category = db.Category
-const categoryService = require('../services/categoryService')
+const categoryService = require('../../services/categoryService')
 let categoryController = {
   //瀏覽所有分類
   getCategories: (req, res) => {
     categoryService.getCategories(req, res, (data) => {
-      return res.render('admin/categories', data)
+      return res.json(data)
     })
-    // return Category.findAll()
-    //   .then(categories => {
-    //     if (req.params.id) {
-    //       Category.findByPk(req.params.id)
-    //         .then(category => {
-    //           return res.render('admin/categories', { categories, category })
-    //         })
-    //     } else {
-    //       return res.render('admin/categories', { categories })
-    //     }
-    //   })
   },
   //新增分類
   postCategory: (req, res) => {

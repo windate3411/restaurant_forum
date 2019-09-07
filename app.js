@@ -60,6 +60,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 app.use(methodOverride('_method'))
 
 // set up static file

@@ -67,12 +67,21 @@ let categoryController = {
   },
   //刪除分類
   deleteCategory: (req, res) => {
-    return Category.findByPk(req.params.id)
-      .then(category => {
-        category.destroy()
-        req.flash('success_messages', 'category was successfully destoryed')
-      })
-      .then(category => res.redirect('/admin/categories'))
+    categoryService.deleteCategory(req, res, (data) => {
+      if (data['status'] === 'success') {
+        req.flash('success_messages', data['message'])
+        res.redirect('/admin/categories')
+      } else {
+        req.flash('error_messages', data['message'])
+        return res.redirect('back')
+      }
+    })
+    // return Category.findByPk(req.params.id)
+    //   .then(category => {
+    //     category.destroy()
+    //     req.flash('success_messages', 'category was successfully destoryed')
+    //   })
+    //   .then(category => res.redirect('/admin/categories'))
   }
 
 }

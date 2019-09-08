@@ -45,13 +45,14 @@ let categoryService = {
     }
   },
   //刪除分類
-  deleteCategory: (req, res) => {
+  deleteCategory: (req, res, callback) => {
     return Category.findByPk(req.params.id)
       .then(category => {
         category.destroy()
-        req.flash('success_messages', 'category was successfully destoryed')
+        // req.flash('success_messages', 'category was successfully destoryed')
+        return callback({ status: 'success', message: "category was successfully destoryed" })
       })
-      .then(category => res.redirect('/admin/categories'))
+    // .then(category => res.redirect('/admin/categories'))
   }
 
 }

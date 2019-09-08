@@ -11,6 +11,8 @@ router.get('/admin/restaurants', adminController.getRestaurants)
 router.get('/admin/restaurants/:id', adminController.getRestaurant)
 //取得分類
 router.get('/admin/categories', categoryController.getCategories)
+//新增分類
+router.post('/admin/categories', categoryController.postCategory)
 //刪除餐廳
 router.delete('/admin/restaurants/:id', adminController.deleteRestaurant)
 //增加餐廳

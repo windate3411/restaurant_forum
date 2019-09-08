@@ -17,16 +17,16 @@ let categoryService = {
       })
   },
   //新增分類
-  postCategory: (req, res) => {
+  postCategory: (req, res, callback) => {
     if (!req.body.name) {
-      req.flash('error_messages', 'name did not exist')
-      return res.redirect('back')
+      return callback({ status: 'error', message: "name didn't exist" })
     } else {
       return Category.create({
         name: req.body.name
       })
         .then(category => {
-          return res.redirect('/admin/categories')
+          return callback({ status: 'success', message: "new category has been successfully added" })
+          // return res.redirect('/admin/categories')
         })
     }
   },

@@ -21,17 +21,26 @@ let categoryController = {
   },
   //新增分類
   postCategory: (req, res) => {
-    if (!req.body.name) {
-      req.flash('error_messages', 'name did not exist')
-      return res.redirect('back')
-    } else {
-      return Category.create({
-        name: req.body.name
-      })
-        .then(category => {
-          return res.redirect('/admin/categories')
-        })
-    }
+    categoryService.postCategory(req, res, (data) => {
+      if (data['status'] === 'success') {
+        req.flash('success_messages', data['message'])
+        res.redirect('/admin/categories')
+      } else {
+        req.flash('error_messages', data['message'])
+        return res.redirect('back')
+      }
+    })
+    // if (!req.body.name) {
+    //   req.flash('error_messages', 'name did not exist')
+    //   return res.redirect('back')
+    // } else {
+    //   return Category.create({
+    //     name: req.body.name
+    //   })
+    //     .then(category => {
+    //       return res.redirect('/admin/categories')
+    //     })
+    // }
   },
   //編輯分類
   putCategory: (req, res) => {

@@ -13,6 +13,8 @@ router.get('/admin/restaurants/:id', adminController.getRestaurant)
 router.get('/admin/categories', categoryController.getCategories)
 //新增分類
 router.post('/admin/categories', categoryController.postCategory)
+//編輯分類
+router.put('/admin/categories/:id', categoryController.putCategory)
 //刪除餐廳
 router.delete('/admin/restaurants/:id', adminController.deleteRestaurant)
 //增加餐廳
